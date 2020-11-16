@@ -1,6 +1,6 @@
 from flask import url_for, render_template, flash, redirect, request
 from app import app, db, bcrypt
-from app.forms import RegistrationForm, LoginForm
+from app.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from app.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -74,15 +74,20 @@ def login():
     
     return render_template('login.html', title = 'Login', form= form)
 
+
 @app.route('/logout')
 def logout():
 
     logout_user()
     return redirect(url_for('home'))
 
+
 @app.route('/account')
 @login_required
 def account():
 
+    form = UpdateAccountForm()
+
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title = 'Account', image_file = image_file)
+
+    return render_template('account.html', title = 'Account', image_file = image_file, form = form)
