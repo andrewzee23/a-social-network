@@ -138,4 +138,4 @@ def new_post():
         flash('Your post has been created!', 'success')
         return redirect(url_for('home'))
 
-    render_template('create_post.html', title = 'New Post', form = form)
+    return render_template('create_post.html', title = 'New Post', form = form)
