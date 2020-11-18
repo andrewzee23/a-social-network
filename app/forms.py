@@ -6,6 +6,7 @@ from wtforms.validators import DataRequired, Length, Email, email_validator, Equ
 import email_validator
 from app.models import User
 
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username',validators = [DataRequired(), Length(min=2, max=20)])
 
