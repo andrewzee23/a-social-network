@@ -4,9 +4,9 @@ from PIL import Image
 from flask import url_for, render_template, flash, redirect, request, abort
 from app import app, db, bcrypt, mail
 # importing CLASSES from FORMS.py
-from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 # importing TABLES FROM DATABASE
-from app.models import User, Post, RequestResetForm, ResetPasswordForm
+from app.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 
@@ -201,6 +201,8 @@ def send_reset_email(user):
 To reset your password, visit the following link: {url_for('reset_token', token=token, _external=True)}
 
 If you did not make this request then simply ignore this email and no changes will be made.'''
+
+    mail.send(msg)
 
 
 @app.route('/reset_password', methods=['GET', 'POST'])
