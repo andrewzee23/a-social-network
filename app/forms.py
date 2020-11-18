@@ -32,7 +32,6 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email is taken. Please choose another one.')
 
 
-
 class LoginForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(), Email()])
 
