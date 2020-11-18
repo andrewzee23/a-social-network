@@ -6,7 +6,7 @@ from app import app, db, bcrypt
 # importing CLASSES from FORMS.py
 from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 # importing TABLES FROM DATABASE
-from app.models import User, Post
+from app.models import User, Post, RequestResetForm, ResetPasswordForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -190,3 +190,11 @@ def user_posts(username):
         .order_by(Post.date_posted.desc())\
         .paginate(per_page=5, page=page)
     return render_template('user_posts.html',posts=posts, user=user)
+
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+        return render_template('reset_request.html', title= 'Reset Password', form = form)
