@@ -3,7 +3,9 @@ import secrets
 from PIL import Image
 from flask import url_for, render_template, flash, redirect, request
 from app import app, db, bcrypt
+# importing CLASSES from FORMS.py
 from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+# importing TABLES FROM DATABASE
 from app.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -43,6 +45,7 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
+        # added user to the database
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
@@ -135,6 +138,10 @@ def new_post():
     form = PostForm()
 
     if form.validate_on_submit():
+        # added post to the database
+        post = Post(title = form.title.data, content = form.content.data, author = current_user)
+        db.session.add(post)
+        db.session.commit()
         flash('Your post has been created!', 'success')
         return redirect(url_for('home'))
 
