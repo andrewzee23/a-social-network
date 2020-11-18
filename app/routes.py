@@ -17,10 +17,12 @@ def home():
     posts = Post.query.all()
     return render_template('home.html',posts=posts)
 
+
 @app.route('/about')
 def about():
 
     return render_template('about.html', title = 'About')
+
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -40,6 +42,7 @@ def register():
         return redirect(url_for('login'))
     
     return render_template('register.html', title = 'Register', form= form)
+
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -86,6 +89,7 @@ def save_picture(form_picture):
 
     return picture_fn
 
+
 @app.route('/account', methods = ['GET', 'POST'])
 @login_required
 def account():
@@ -117,6 +121,7 @@ def account():
 
     return render_template('account.html', title = 'Account', image_file = image_file, form = form)
 
+
 @app.route('/post/new', methods = ['GET', 'POST'])
 @login_required
 def new_post():
@@ -132,3 +137,5 @@ def new_post():
         return redirect(url_for('home'))
 
     return render_template('create_post.html', title = 'New Post', form = form)
+
+    
