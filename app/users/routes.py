@@ -2,7 +2,7 @@ from flask import Blueprint
 
 users = Blueprint('users', __name__)
 
-@app.route('/register', methods = ['GET', 'POST'])
+@users.route('/register', methods = ['GET', 'POST'])
 def register():
 
     if current_user.is_authenticated:
@@ -22,7 +22,7 @@ def register():
     return render_template('register.html', title = 'Register', form= form)
 
 
-@app.route('/login', methods = ['GET', 'POST'])
+@users.route('/login', methods = ['GET', 'POST'])
 def login():
 
     if current_user.is_authenticated:
@@ -48,13 +48,13 @@ def login():
     return render_template('login.html', title = 'Login', form= form)
 
 
-@app.route('/logout')
+@users.route('/logout')
 def logout():
 
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/account', methods = ['GET', 'POST'])
+@users.route('/account', methods = ['GET', 'POST'])
 @login_required
 def account():
 
@@ -85,7 +85,7 @@ def account():
 
     return render_template('account.html', title = 'Account', image_file = image_file, form = form)
 
-@app.route('/user/<string:username>')
+@users.route('/user/<string:username>')
 def user_posts(username):
 
     page = request.args.get('page', 1, type=int)
@@ -95,7 +95,7 @@ def user_posts(username):
         .paginate(per_page=5, page=page)
     return render_template('user_posts.html',posts=posts, user=user)
 
-@app.route('/reset_password', methods=['GET', 'POST'])
+@users.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
 
     if current_user.is_authenticated:
@@ -110,7 +110,7 @@ def reset_request():
     return render_template('reset_request.html', title= 'Reset Password', form = form)
 
 
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+@users.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
     
     if current_user.is_authenticated:
