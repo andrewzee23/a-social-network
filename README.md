@@ -5,5 +5,4 @@ This site will allow you to:
 - Create an account with email
 - Upload a profile picture
 - Perform basic CRUD ops with post
-
-![Philadelphia's Magic Gardens. This place was so cool!](/images/crud.png "CRUD Operations")
+![](/images/crud.png "CRUD Operations")
